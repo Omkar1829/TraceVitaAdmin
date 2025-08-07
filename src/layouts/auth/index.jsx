@@ -19,7 +19,7 @@ export default function Auth() {
   document.documentElement.dir = "ltr";
   return (
     <div>
-      <div className="relative float-right h-full min-h-screen w-full !bg-white dark:!bg-navy-900">
+      <div className="relative h-full min-h-screen w-full !bg-white dark:!bg-navy-900">
         <FixedPlugin />
         <main className={`mx-auto min-h-screen`}>
           <div className="relative flex">
@@ -51,12 +51,6 @@ export default function Auth() {
                     element={<Navigate to="/auth/sign-in" replace />}
                   />
                 </Routes>
-                <div className="absolute right-0 hidden h-full min-h-screen md:block lg:w-[49vw] 2xl:w-[44vw]">
-                  <div
-                    className="absolute flex h-full w-full items-end justify-center bg-cover bg-center lg:rounded-bl-[120px] xl:rounded-bl-[200px]"
-                    style={{ backgroundImage: `url(${authImg})` }}
-                  />
-                </div>
               </div>
               {/* <Footer /> */}
             </div>

@@ -62,42 +62,43 @@ const weeklyData = [
 
 const Dashboard = () => {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Admin Overview</h1>
+    <div className="p-6 bg-[#E8F6F3] min-h-screen">
+      <h1 className="text-2xl font-bold mb-6" style={{ color: '#2D3142' }}>Admin Overview</h1>
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         {dashboardStats.map((stat, idx) => (
           <div
             key={idx}
-            className="bg-white shadow-sm rounded-xl p-5 flex items-center gap-4 hover:shadow-md transition"
+            className="shadow-sm rounded-xl p-5 flex items-center gap-4 hover:shadow-md transition"
+            style={{ background: '#FFFFFF' }}
           >
-            <div className="p-3 bg-gray-100 rounded-full">{stat.icon}</div>
+            <div className="p-3 rounded-full" style={{ background: '#00C8961A' }}>{stat.icon}</div>
             <div>
-              <h4 className="text-sm text-gray-500">{stat.title}</h4>
-              <p className="text-lg font-semibold text-gray-800">{stat.value}</p>
+              <h4 className="text-sm" style={{ color: '#2D3142' }}>{stat.title}</h4>
+              <p className="text-lg font-semibold" style={{ color: '#2D3142' }}>{stat.value}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Chart Section */}
-      <div className="bg-white shadow-sm rounded-xl p-6">
+      <div className="shadow-sm rounded-xl p-6" style={{ background: '#FFFFFF' }}>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-gray-700">
+          <h2 className="text-lg font-semibold" style={{ color: '#2D3142' }}>
             Weekly AI Suggestions Triggered
           </h2>
-          <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
+          <span className="text-sm px-3 py-1 rounded-full" style={{ background: '#FFD93D', color: '#2D3142' }}>
             This Week
           </span>
         </div>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={weeklyData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
+            <XAxis dataKey="day" stroke="#2D3142" />
+            <YAxis stroke="#2D3142" />
             <Tooltip />
-            <Bar dataKey="value" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="value" fill="#00C896" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

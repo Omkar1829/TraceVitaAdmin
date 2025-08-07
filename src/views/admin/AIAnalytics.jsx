@@ -193,13 +193,22 @@ const AIAnalytics = () => {
 
 // Card Component
 const Card = ({ icon, label, value }) => (
-  <div className="bg-white rounded-2xl shadow-md p-5 flex items-center gap-4">
-    <div className="text-vitalGreen text-3xl">{icon}</div>
+  <div className="rounded-2xl shadow-md p-5 flex items-center gap-4" style={{ background: '#FFFFFF' }}>
+    <div className="text-3xl" style={{ color: '#00C896' }}>{icon}</div>
     <div>
-      <p className="text-sm text-gray-500">{label}</p>
-      <h3 className="text-lg font-bold text-deepIndigo">{value}</h3>
+      <p className="text-sm" style={{ color: '#2D3142' }}>{label}</p>
+      <h3 className="text-lg font-bold" style={{ color: '#2D3142' }}>{value}</h3>
     </div>
   </div>
 );
 
-export default AIAnalytics;
+// ...existing code...
+
+// Wrap main content in themed container
+const AIAnalyticsPage = () => (
+  <div className="p-6 bg-[#E8F6F3] min-h-screen">
+    <AIAnalytics />
+  </div>
+);
+
+export default AIAnalyticsPage;

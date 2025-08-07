@@ -11,8 +11,8 @@ import DataTables from "views/admin/tables";
 import SignIn from "views/auth/SignIn";
 
 // New Admin Pages (TraceVita)
-import Users from "views/admin/Users";
-import Recipes from "views/admin/Recipes";
+import Users from "./views/admin/Users";
+import Recipes from "./views/admin/Recipes";
 import EducationCards from "views/admin/EducationCards";
 import PartnerOffers from "views/admin/PartnerOffers";
 import MealPlans from "views/admin/MealPlans";
@@ -102,7 +102,7 @@ const routes = [
   //   component: <MealPlans />,
   // },
   {
-    name: "AI Analytics",
+    name: "Analytics",
     layout: "/admin",
     path: "ai-analytics",
     icon: <MdInsights className="h-6 w-6" />,
