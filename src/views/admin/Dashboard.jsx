@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   MdPeople,
   MdCardMembership,
@@ -17,38 +18,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const dashboardStats = [
-  {
-    title: "Total Users",
-    value: "1,820",
-    icon: <MdPeople className="text-xl text-blue-500" />,
-  },
-  {
-    title: "Premium Users",
-    value: "326",
-    icon: <MdCardMembership className="text-xl text-purple-600" />,
-  },
-  {
-    title: "Recipes Uploaded",
-    value: "94",
-    icon: <MdRestaurant className="text-xl text-orange-400" />,
-  },
-  {
-    title: "AI Suggestions",
-    value: "113 Today",
-    icon: <MdBolt className="text-xl text-yellow-500" />,
-  },
-  {
-    title: "Deficiencies Detected",
-    value: "62",
-    icon: <MdShowChart className="text-xl text-red-500" />,
-  },
-  {
-    title: "Education Cards",
-    value: "37",
-    icon: <MdLibraryBooks className="text-xl text-green-600" />,
-  },
-];
+
 
 const weeklyData = [
   { day: "Mon", value: 10 },
@@ -60,7 +30,60 @@ const weeklyData = [
   { day: "Sun", value: 18 },
 ];
 
+
+
 const Dashboard = () => {
+
+  const [adminData, setAdminData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  console.log("admindata:", adminData);
+  const staticToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXVpZCI6IjBlMjdjMTlmLWY0NGQtNGM0NS05ZDU3LWMwMzY3NmVkNmQyYyIsImVtYWlsIjoicHJhdGlrc3VydmU5OTY5QGdtYWlsLmNvbSIsInN0ZXAiOjAsImlhdCI6MTc1NDU5NDMxOSwiZXhwIjoxNzU3MTg2MzE5fQ.Kj-Bl76YwtKYG549Sf6SOHV9iqsl_1cA7tusp3zCA6Y'
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/user/getAdmin/2', {
+          headers: {
+            Authorization: `Bearer ${staticToken}`
+          }
+        }); // using static user Id
+        setAdminData(response.data.data);
+
+      } catch (err) {
+        console.error('Error fetching admin data:', err);
+        setError('Failed to fetch admin data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAdminData(); // Trigger on component mount
+  }, []); // Empty dependency array = run once on mount
+
+  const dashboardStats = [
+    {
+      title: "Total Users",
+      value: adminData?.totalCount || 0,
+      icon: <MdPeople className="text-xl text-blue-500" />,
+    },
+    {
+      title: "Premium Users",
+      value: adminData?.totalCount || 0,
+      icon: <MdCardMembership className="text-xl text-purple-600" />,
+    },
+    {
+      title: "Recipes Uploaded",
+      value: adminData?.foodLogCount || 0,
+      icon: <MdRestaurant className="text-xl text-orange-400" />,
+    },
+    {
+      title: "AI Suggestions",
+      value: "0",
+      icon: <MdBolt className="text-xl text-yellow-500" />,
+    }
+
+  ];
+
   return (
     <div className="p-6 bg-[#E8F6F3] min-h-screen">
       <h1 className="text-2xl font-bold mb-6" style={{ color: '#2D3142' }}>Admin Overview</h1>
@@ -93,7 +116,7 @@ const Dashboard = () => {
           </span>
         </div>
         <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={weeklyData}>
+          <BarChart data={adminData?.weeklyLogs}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="day" stroke="#2D3142" />
             <YAxis stroke="#2D3142" />
