@@ -38,11 +38,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   console.log("admindata:", adminData);
-  const staticToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXVpZCI6IjBlMjdjMTlmLWY0NGQtNGM0NS05ZDU3LWMwMzY3NmVkNmQyYyIsImVtYWlsIjoicHJhdGlrc3VydmU5OTY5QGdtYWlsLmNvbSIsInN0ZXAiOjAsImlhdCI6MTc1NDU5NDMxOSwiZXhwIjoxNzU3MTg2MzE5fQ.Kj-Bl76YwtKYG549Sf6SOHV9iqsl_1cA7tusp3zCA6Y'
+  const staticToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXVpZCI6IjJmNTY5ZjdkLTg0ODYtNDhiYS1iZTAzLTFiODQ4ODE4ZjQ2MiIsImVtYWlsIjoib21rYXJrYWxlNjg4QGdtYWlsLmNvbSIsInN0ZXAiOjAsImlhdCI6MTc1NDUwODE3NywiZXhwIjoxNzU0NTA5OTc3fQ.CoxUzkjpZt62rRIYNaMhCkxN3pIN4x2_sUaEMwrWmHg'
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/getAdmin/2', {
+        const response = await axios.get('http://localhost:3000/api/user/getAdmin/1', {
           headers: {
             Authorization: `Bearer ${staticToken}`
           }
@@ -71,13 +71,13 @@ const Dashboard = () => {
       value: adminData?.totalCount || 0,
       icon: <MdCardMembership className="text-xl text-purple-600" />,
     },
+    // {
+    //   title: "Recipes Uploaded",
+    //   value: adminData?.foodLogCount || 0,
+    //   icon: <MdRestaurant className="text-xl text-orange-400" />,
+    // },
     {
-      title: "Recipes Uploaded",
-      value: adminData?.foodLogCount || 0,
-      icon: <MdRestaurant className="text-xl text-orange-400" />,
-    },
-    {
-      title: "AI Suggestions",
+      title: "Smart Suggestions",
       value: "0",
       icon: <MdBolt className="text-xl text-yellow-500" />,
     }
@@ -109,7 +109,7 @@ const Dashboard = () => {
       <div className="shadow-sm rounded-xl p-6" style={{ background: '#FFFFFF' }}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold" style={{ color: '#2D3142' }}>
-            Weekly AI Suggestions Triggered
+            Weekly Smart Suggestions Cost
           </h2>
           <span className="text-sm px-3 py-1 rounded-full" style={{ background: '#FFD93D', color: '#2D3142' }}>
             This Week
