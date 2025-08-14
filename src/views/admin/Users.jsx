@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdSearch, MdVisibility, MdDelete, MdUpgrade } from "react-icons/md";
+import axios from "axios";
+
 
 const usersData = [
     {
@@ -1448,11 +1450,41 @@ const Users = () => {
     const [search, setSearch] = useState("");
     const [selectedUser, setSelectedUser] = useState(null);
     const [filter, setFilter] = useState("all");
+    const [usersData, setUsersData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    console.log("usersData:", usersData);
+    const staticToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXVpZCI6IjBlMjdjMTlmLWY0NGQtNGM0NS05ZDU3LWMwMzY3NmVkNmQyYyIsImVtYWlsIjoicHJhdGlrc3VydmU5OTY5QGdtYWlsLmNvbSIsInN0ZXAiOjAsImlhdCI6MTc1NDU5NDMxOSwiZXhwIjoxNzU3MTg2MzE5fQ.Kj-Bl76YwtKYG549Sf6SOHV9iqsl_1cA7tusp3zCA6Y'
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const res = await axios.get("http://localhost:3000/api/user/getUsersList", {
+                    headers: {
+                        Authorization: `Bearer ${staticToken}`
+                    }
+                });
+                setUsersData(res.data.data || []);
+            } catch (err) {
+                console.error("Error fetching users:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUsers();
+    }, []);
 
     const filteredUsers = usersData.filter((user) =>
         (filter === "all" || user.plan.toLowerCase() === filter) &&
         user.name.toLowerCase().includes(search.toLowerCase())
     );
+
+    if (loading) return <div className="p-6 text-lg">Loading users...</div>;
+
+    // const filteredUsers = usersData.filter((user) =>
+    //     (filter === "all" || user.plan.toLowerCase() === filter) &&
+    //     user.name.toLowerCase().includes(search.toLowerCase())
+    // );
 
     return (
         <div className="p-6">
@@ -1466,8 +1498,8 @@ const Users = () => {
                             key={f}
                             onClick={() => setFilter(f)}
                             className={`px-4 py-1 rounded-full border ${filter === f
-                                    ? "bg-vitalGreen text-white"
-                                    : "text-gray-600 border-gray-300"
+                                ? "bg-vitalGreen text-white"
+                                : "text-gray-600 border-gray-300"
                                 }`}
                         >
                             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -1514,8 +1546,8 @@ const Users = () => {
                                 <td className="px-6 py-4">
                                     <span
                                         className={`px-3 py-1 text-xs rounded-full font-semibold ${user.status === "Active"
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-yellow-100 text-yellow-700"
+                                            ? "bg-green-100 text-green-700"
+                                            : "bg-yellow-100 text-yellow-700"
                                             }`}
                                     >
                                         {user.status}
