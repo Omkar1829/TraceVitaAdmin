@@ -34,6 +34,9 @@ import {
   MdInsights,
   MdSettings,
 } from "react-icons/md";
+import Support from "views/admin/Suport";
+import GiftCard from "views/admin/GiftCard";
+import Reffreal from "views/admin/Reffreal";
 
 const routes = [
   {
@@ -104,7 +107,7 @@ const routes = [
   {
     name: "API Analytics",
     layout: "/admin",
-    path: "ai-analytics",
+    path: "api-analytics",
     icon: <MdInsights className="h-6 w-6" />,
     component: <AIAnalytics />,
   },
@@ -120,21 +123,21 @@ const routes = [
     layout: "/admin",
     path: "referral-management",
     icon: <MdSettings className="h-6 w-6" />,
-    component: <Settings />,
+    component: <Reffreal />,
   },
   {
     name: "Gift Cards Management",
     layout: "/admin",
     path: "gift-cards-management",
     icon: <MdSettings className="h-6 w-6" />,
-    component: <Settings />,
+    component: <GiftCard />,
   },
   {
     name: "Support and Feedback",
     layout: "/admin",
     path: "support-feedback",
     icon: <MdSettings className="h-6 w-6" />,
-    component: <Settings />,
+    component: <Support />,
   },
   {
     name: "Sign In",
